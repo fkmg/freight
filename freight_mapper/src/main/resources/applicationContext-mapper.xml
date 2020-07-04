@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--
+    context注意: <context:property-placeholder 在整个springmvc中默认只能使用一次
+    和 读取jdbc的冲突 会启动报错 解决办法 将每个<context:property-placeholder>
+    标签中添加属性 ignore-unresolvable="true"
+-->
+    <!--加载jdbc配置文件-->
+    <context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true" ></context:property-placeholder>
+    <!--配置数据源-->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"></property>
+        <property name="url" value="${jdbc.url}"></property>
+        <property name="username" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+
+    <!--配置sqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--加载数据源-->
+        <property name="dataSource" ref="dataSource"></property>
+        <!--<property name="typeAliasesPackage" value="com.sxt.beanss"></property>-->
+        <property name="mapperLocations" value="classpath:mapper/*"/>
+        <!--加载mybatis主配置文件-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+    </bean>
+    <!--配置mapper扫描器-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--配置扫描路径-->
+        <property name="basePackage" value="com.sxt.mapper"></property>
+        <!--加载sqlSessionFactory-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+    </bean>
+</beans>
+
