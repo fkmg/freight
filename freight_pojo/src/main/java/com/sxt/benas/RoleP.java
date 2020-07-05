@@ -1,8 +1,9 @@
 package com.sxt.benas;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RoleP {
+public class RoleP implements Serializable {
     private String roleId;
 
     private String name;

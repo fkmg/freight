@@ -1,8 +1,9 @@
 package com.sxt.benas;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class UserP {
+public class UserP  implements Serializable {
     private String userId;
 
     private String deptId;

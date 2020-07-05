@@ -28,4 +28,11 @@ public interface ModulePMapper {
     int updateByPrimaryKeySelective(ModuleP record);
 
     int updateByPrimaryKey(ModuleP record);
+
+    /**
+     * 根据用户账户信息获取用户权限信息
+     * @param account
+     * @return
+     */
+    List<ModuleP> getpermissionsByAccoune(String account);
 }

@@ -28,4 +28,11 @@ public interface UserPMapper {
     int updateByPrimaryKeySelective(UserP record);
 
     int updateByPrimaryKey(UserP record);
+
+    /**
+     * 根据账户名获取用户信息
+     * @param account
+     * @return
+     */
+    UserP getPasswordAndSaltByAccount(String account);
 }

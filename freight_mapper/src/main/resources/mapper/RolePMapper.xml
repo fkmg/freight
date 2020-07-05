@@ -273,4 +273,16 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ROLE_ID = #{roleId,jdbcType=VARCHAR}
   </update>
+
+    <select id="getRolesByAccount" parameterType="string" resultMap="BaseResultMap">
+        SELECT
+          rp.*
+        FROM
+          role_p rp
+          LEFT JOIN role_user_p rup
+            ON rp.`ROLE_ID` = rup.`ROLE_ID`
+          LEFT JOIN user_p up
+            ON rup.`USER_ID` = up.`USER_ID`
+        WHERE up.`USER_NAME` = #{value}
+    </select>
 </mapper>

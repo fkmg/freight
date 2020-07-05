@@ -288,4 +288,12 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where USER_ID = #{userId,jdbcType=VARCHAR}
   </update>
+
+    <select id="getPasswordAndSaltByAccount" parameterType="string" resultMap="BaseResultMap">
+        SELECT
+          *
+        FROM
+          user_p
+        WHERE USER_NAME = #{value}
+    </select>
 </mapper>

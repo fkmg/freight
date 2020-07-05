@@ -28,4 +28,11 @@ public interface RolePMapper {
     int updateByPrimaryKeySelective(RoleP record);
 
     int updateByPrimaryKey(RoleP record);
+
+    /**
+     * 根据用户名获取用户角色
+     * @param account
+     * @return
+     */
+    List<RoleP> getRolesByAccount(String account);
 }

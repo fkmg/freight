@@ -2,37 +2,34 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd
     http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd
-    http://www.springframework.org/schema/tx
-    http://www.springframework.org/schema/tx/spring-tx.xsd
 
-
-
-
-    http://www.springframework.org/schema/aop
-    http://www.springframework.org/schema/aop/spring-aop.xsd
     http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-    <!--添加注解扫描器-->
-    <context:component-scan base-package="com.sxt"></context:component-scan>
-
+    <!-- 自动扫描且只扫描@Controller -->
+    <context:component-scan base-package="com.sxt" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
     <!--总开关-->
     <!--添加了注解的处理器映射器和处理器适配器-->
     <!--顺带着将转换器服务给打开-->
-    <mvc:annotation-driven conversion-service="cs"/>
-    <!--配置转换器服务-->
+    <mvc:annotation-driven />
+    <!--<mvc:annotation-driven conversion-service="cs"/>-->
+    <!--配置转换器服务
     <bean id="cs" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">
-            <list>
-                <!--日期转换器-->
+            <list>-->
+                <!--日期转换器
                 <bean class="com.sxt.converter.DateConverter"></bean>
             </list>
         </property>
     </bean>
+    -->
     <!--配置视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
@@ -48,32 +45,6 @@
     <!--开放静态资源-->
     <mvc:default-servlet-handler/>
 
-    <!--配置aop声明式事物-->
-    <!--配置事物管理器-->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <!--将数据源交给事物管理器进行管理-->
-        <property name="dataSource" ref="dataSource"></property>
-    </bean>
-    <!-- 配置一个事物管理通知 -->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="add*" propagation="REQUIRED"/>
-            <tx:method name="save*" propagation="REQUIRED"/>
-            <tx:method name="del*" propagation="REQUIRED"/>
-            <tx:method name="up*" propagation="REQUIRED"/>
-            <tx:method name="update*" propagation="REQUIRED"/>
-            <tx:method name="find*" propagation="SUPPORTS"/>
-            <tx:method name="search*" propagation="SUPPORTS"/>
-            <tx:method name="*" propagation="REQUIRED"/>
-        </tx:attributes>
-    </tx:advice>
-    <!--切面-->
-    <aop:config>
-        <!-- 配置切入点 -->
-        <aop:pointcut expression="execution(* com.sxt.service.impl.*.*(..))" id="pc"/>
-        <!-- 为切入点织入通知 -->
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="pc"/>
-    </aop:config>
     <!--初始化一个凭证管理器，设置密码的加密算法和规则-->
     <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
         <property name="hashAlgorithmName" value="md5"/>
@@ -179,23 +150,13 @@
         <property name="loginUrl" value="/login"/>
         <property name="successUrl" value="/toMain"/>
     </bean>
-
-    <!-- 自动扫描且只扫描@Controller -->
-    <context:component-scan base-package="com.sxt" use-default-filters="false">
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-        <context:include-filter type="annotation"
-                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
-    </context:component-scan>
-
-    <!-- 开启aop对类代理 -->
-    <aop:config proxy-target-class="true"/>
     <!-- 开启shiro注解支持 配置shiro的认证属性通知者-->
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
     </bean>
 
-    <!-- 全局异常处理器-->
+    <!-- 全局异常处理器
    <bean id="handlerExceptionResolver" class="com.sxt.resolver.CustomExceptionResolver"/>
-
+    -->
 </beans>
 

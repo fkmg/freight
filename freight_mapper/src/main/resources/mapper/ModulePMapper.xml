@@ -462,4 +462,18 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where MODULE_ID = #{moduleId,jdbcType=VARCHAR}
   </update>
+
+    <select id="getpermissionsByAccoune" resultMap="BaseResultMap" parameterType="string">
+        SELECT
+          mp.*
+        FROM
+          module_p mp
+          LEFT JOIN role_module_p rmp
+            ON mp.`MODULE_ID` = rmp.`MODULE_ID`
+          LEFT JOIN role_user_p rup
+            ON rmp.`ROLE_ID` = rup.`ROLE_ID`
+          LEFT JOIN user_p up
+            ON rup.`USER_ID` = up.`USER_ID`
+        WHERE up.`USER_NAME` = #{value}
+    </select>
 </mapper>

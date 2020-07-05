@@ -1,8 +1,9 @@
 package com.sxt.benas;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ModuleP {
+public class ModuleP implements Serializable {
     private String moduleId;
 
     private String parentId;
