@@ -56,9 +56,9 @@
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
     </bean>
 
-    <!--配置一个缓存管理器-->
+    <!--配置一个缓存管理器
     <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager"></bean>
-
+    -->
 
     <!-- 会话管理器 -->
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
@@ -86,7 +86,7 @@
         <!--注入我们自定的realm-->
         <property name="realm" ref="shiroRealm"/>
         <!--注入缓存管理器-->
-        <property name="cacheManager" ref="cacheManager"/>
+        <property name="cacheManager" ref="shiroCacheManager"/>
         <!--注入会话管理器-->
         <property name="sessionManager" ref="sessionManager"/>
         <!--注入记住我管理器-->
@@ -155,8 +155,19 @@
         <property name="securityManager" ref="securityManager"/>
     </bean>
 
-    <!-- 全局异常处理器
+    <!-- 全局异常处理器-->
    <bean id="handlerExceptionResolver" class="com.sxt.resolver.CustomExceptionResolver"/>
-    -->
+
+    <!-- MyBatis使用ehcache缓存 start -->
+    <bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:cache/ehcache.xml"/>
+        <property name="shared" value="true"></property>
+    </bean>
+    <!-- end MyBatis使用ehcache缓存 -->
+
+    <!-- shiro缓存管理器 使用Ehcache实现 -->
+    <bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManager" ref="ehCacheManager" />
+    </bean>
 </beans>
 

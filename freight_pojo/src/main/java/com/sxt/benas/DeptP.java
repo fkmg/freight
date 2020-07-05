@@ -1,6 +1,8 @@
 package com.sxt.benas;
 
-public class DeptP {
+import java.io.Serializable;
+
+public class DeptP implements Serializable {
     private String deptId;
 
     private String deptName;

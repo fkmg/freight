@@ -8,6 +8,15 @@
     <result column="STATE" jdbcType="INTEGER" property="state" />
     <result column="dept_no" jdbcType="VARCHAR" property="deptNo" />
   </resultMap>
+
+  <resultMap id="BaseResultMaps" type="com.sxt.vo.DeptVo">
+    <id column="DEPT_ID" jdbcType="VARCHAR" property="deptId" />
+    <result column="DEPT_NAME" jdbcType="VARCHAR" property="deptName" />
+    <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+    <result column="STATE" jdbcType="INTEGER" property="state" />
+    <result column="dept_no" jdbcType="VARCHAR" property="deptNo" />
+    <result column="PND" jdbcType="VARCHAR" property="parentDeptName" />
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -208,4 +217,24 @@
       dept_no = #{deptNo,jdbcType=VARCHAR}
     where DEPT_ID = #{deptId,jdbcType=VARCHAR}
   </update>
+
+  <select id="selectDeptAndParent" resultMap="BaseResultMaps">
+      SELECT
+        T1.*,
+        T2.DEPT_NAME  PND
+      FROM
+        dept_p T1
+        LEFT JOIN dept_p T2
+          ON T1.PARENT_ID = T2.DEPT_ID ORDER BY T1.`dept_no`
+  </select>
+
+  <select id="selectDeptAndParentById" resultMap="BaseResultMaps" parameterType="String">
+    SELECT
+      T1.*,
+      T2.DEPT_NAME  PND
+    FROM
+      dept_p T1
+      LEFT JOIN dept_p T2
+        ON T1.PARENT_ID = T2.DEPT_ID WHERE T1.`DEPT_ID`=#{value}
+  </select>
 </mapper>

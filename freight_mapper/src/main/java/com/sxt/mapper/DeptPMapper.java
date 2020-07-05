@@ -28,4 +28,18 @@ public interface DeptPMapper {
     int updateByPrimaryKeySelective(DeptP record);
 
     int updateByPrimaryKey(DeptP record);
+
+    /**
+     * 根据部门父id查询子部门信息
+     * @return
+     */
+    List<DeptP> selectDeptAndParent() throws Exception;
+
+    /**
+     * 通过id查询部门信息
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    DeptP selectDeptAndParentById(String id) throws Exception;
 }
