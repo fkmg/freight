@@ -18,7 +18,7 @@
 	
 <script language="javascript">
 
-	function CustomTitle(){
+	/*function CustomTitle(){
 		var Me = document.getElementById('memos');
 		var Loin = document.getElementById('logins');
 		var Lout = document.getElementById('logout');
@@ -30,7 +30,7 @@
 		
 		Lout.onmouseover = function(){document.getElementById('small_login_out').style.background='url(${ctx}/skin/default/images/title/login_out2.gif) no-repeat left -55px;'};
 		Lout.onmouseout = function(){document.getElementById('small_login_out').style.background='url(${ctx}/skin/default/images/title/login_out.gif) no-repeat'};
-	}
+	}*/
 	
 	function linkHighlightMenu(obj){
 		var links=document.getElementsByTagName('span');
@@ -45,7 +45,7 @@
 				links[i].style.padding = '';
 			}
 		}
-		obj.style.background ='url("${ctx}/skin/default/images/title/button_bg.jpg") no-repeat';
+		obj.style.background ='url("${ctx}/skin/default/images/title/title_bgs.jpg") no-repeat';
 		obj.style.color = "#fff";                                                                                                                                                                                                                                                   
 		obj.style.fontWeight  = 'bold';
 		obj.style.padding= '6px 11x 5px 13px;';
@@ -178,10 +178,10 @@
 			return formSubmit("${ctx}/logout", "_top");
 		}
 		
-		function toModule(moduleName){
+		function toModule(moduleName,obj){
 			top.leftFrame.location.href = 'homeAction_toleft?moduleName=' + moduleName;
 			top.main.location.href = 'homeAction_tomain?moduleName=' + moduleName;
-			linkHighlightMenu(this);
+			linkHighlightMenu(obj);
 		}
 </script>
 	
@@ -213,39 +213,40 @@
 		    		<span id="leftKey"  onmouseover="periodOffset(this, 'left')"><img src="${ctx}/skin/default/images/title/left_arrow.png"/></span>
 			    	<div class="mavMeau_top"></div>
 			    	<div id="mask">
-<div id="menuContent">
-	<%-- <span id="topmenu" onclick="toModule('home');">系统首页</span><span id="tm_separator"></span>
-	<span id="topmenu" onclick="toModule('cargo');">货运管理</span><span id="tm_separator"></span>
-	<span id="topmenu" onclick="toModule('stat');">统计分析</span><span id="tm_separator"></span>
-	<span id="topmenu" onclick="toModule('baseinfo');">基础信息</span><span id="tm_separator"></span>
-	<span id="topmenu" onclick="toModule('sysadmin');">系统管理</span>--%>
+						<div id="menuContent">
+							<span id="topmenu" onclick="toModule('home',this);">系统首页</span><span id="tm_separator"></span>
+							<span id="topmenu" onclick="toModule('cargo',this);">货运管理</span><span id="tm_separator"></span>
+							<span id="topmenu" onclick="toModule('stat',this);">统计分析</span><span id="tm_separator"></span>
+							<span id="topmenu" onclick="toModule('baseinfo',this);">基础信息</span><span id="tm_separator"></span>
+							<span id="topmenu" onclick="toModule('sysadmin',this);">系统管理</span>
 
 
-<!-- 当jsp页面碰到shiro标签时就执行AuthRealm中授权方法 -->
+							<!-- 当jsp页面碰到shiro标签时就执行AuthRealm中授权方法 -->
+							<%--
+							<shiro:hasPermission name="系统首页">
+							<span id="topmenu" onclick="toModule('home');">系统首页</span><span id="tm_separator"></span>
+							</shiro:hasPermission>
+							<shiro:hasPermission name="货运管理">
+							   <span id="topmenu" onclick="toModule('cargo');">货运管理</span><span id="tm_separator"></span>
+							</shiro:hasPermission>
+							<shiro:hasPermission name="统计分析">
+							<span id="topmenu" onclick="toModule('stat');">统计分析</span><span id="tm_separator"></span>
+							</shiro:hasPermission>
+							<shiro:hasPermission name="基础信息">
+							<span id="topmenu" onclick="toModule('baseinfo');">基础信息</span><span id="tm_separator"></span>
+							</shiro:hasPermission>
+							<shiro:hasPermission name="系统管理">
+							<span id="topmenu" onclick="toModule('sysadmin');">系统管理</span>
+							</shiro:hasPermission>
+							<shiro:hasPermission name="流程管理">
+							<span id="topmenu" onclick="toModule('activiti');">流程管理</span>
+							</shiro:hasPermission>
+							<shiro:hasPermission name="请假管理">
+							   <span id="topmenu" onclick="toModule('leave');">请假管理</span>
+							</shiro:hasPermission>
+                         --%>
 
-<shiro:hasPermission name="系统首页">
-<span id="topmenu" onclick="toModule('home');">系统首页</span><span id="tm_separator"></span>
-</shiro:hasPermission>
-<shiro:hasPermission name="货运管理">
-   <span id="topmenu" onclick="toModule('cargo');">货运管理</span><span id="tm_separator"></span>
-</shiro:hasPermission>
-<shiro:hasPermission name="统计分析">
-<span id="topmenu" onclick="toModule('stat');">统计分析</span><span id="tm_separator"></span>
-</shiro:hasPermission>
-<shiro:hasPermission name="基础信息">
-<span id="topmenu" onclick="toModule('baseinfo');">基础信息</span><span id="tm_separator"></span>
-</shiro:hasPermission>
-<shiro:hasPermission name="系统管理">
-<span id="topmenu" onclick="toModule('sysadmin');">系统管理</span>
-</shiro:hasPermission>
-<shiro:hasPermission name="流程管理">
-<span id="topmenu" onclick="toModule('activiti');">流程管理</span>
-</shiro:hasPermission>
-<shiro:hasPermission name="请假管理">
-   <span id="topmenu" onclick="toModule('leave');">请假管理</span>
-</shiro:hasPermission>
-
-</div>
+						</div>
                <span id="rightKey" onmouseover="periodOffset(this, 'right')"><img src="${ctx}/skin/default/images/title/right_arrow.png"/></span>
            </div>
    </div>

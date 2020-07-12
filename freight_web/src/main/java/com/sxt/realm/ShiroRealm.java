@@ -47,6 +47,8 @@ public class ShiroRealm extends AuthorizingRealm {
                 }
             }
 
+            moduleList = userpService.getpermissionsByAccount(user.getUserName());
+
             if (moduleList != null && moduleList.size()>0){
                 for(int i = 0; i< moduleList.size();i++){
                     module = moduleList.get(i);

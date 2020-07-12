@@ -2,6 +2,7 @@ package com.sxt.mapper;
 
 import com.sxt.benas.DeptP;
 import com.sxt.benas.DeptPExample;
+import com.sxt.vo.DeptVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public interface DeptPMapper {
      * 根据部门父id查询子部门信息
      * @return
      */
-    List<DeptP> selectDeptAndParent() throws Exception;
+    List<DeptVo> selectDeptAndParent() throws Exception;
 
     /**
      * 通过id查询部门信息
@@ -41,5 +42,5 @@ public interface DeptPMapper {
      * @return
      * @throws Exception
      */
-    DeptP selectDeptAndParentById(String id) throws Exception;
+    DeptVo selectDeptAndParentById(String id) throws Exception;
 }

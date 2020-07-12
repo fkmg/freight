@@ -2,9 +2,9 @@ package com.sxt.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.sxt.benas.DeptP;
 import com.sxt.service.DeptService;
 import com.sxt.util.PageBean;
+import com.sxt.vo.DeptVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +22,8 @@ public class DeptController {
     public String toMain(Model model, PageBean pb) throws Exception {
         pb.setUrl("sysadmin/deptAction_list");
         PageHelper.startPage(pb.getCurPage().intValue(), pb.getPageSize().intValue());
-        List<DeptP> ds = service.selectDeptAndParent();
-        PageInfo<DeptP> info = new PageInfo<>(ds);
+        List<DeptVo> ds = service.selectDeptAndParent();
+        PageInfo<DeptVo> info = new PageInfo<>(ds);
         pb.setDatas(info.getList());
         pb.setTotalRows(info.getTotal());
         model.addAttribute("pb", pb);
