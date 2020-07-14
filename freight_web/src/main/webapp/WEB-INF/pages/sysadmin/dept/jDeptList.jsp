@@ -6,6 +6,48 @@
 <head>
 	<title></title>
 	<script type="text/javascript" src="${ctx }/js/jquery-1.4.4.js"></script>
+	<script>
+		//判读是否选择唯一
+		function isOnlyChecked(){
+			var selectArrays = document.getElementsByName("id");
+			if(selectArrays != undefined && selectArrays !=null){
+				var i = 0;
+				var length = selectArrays.length;
+				var count = 0;
+				for (i;i<length;i++){
+					if(selectArrays[i].checked){
+						count ++;
+					}
+				}
+				//或者使用jquery
+				//var count = $("[input name='id']:checked").size();
+				if(count==1){
+					return true;
+				}
+			}
+			return false;
+		}
+
+		function toView(){
+			if(isOnlyChecked()){
+				formSubmit('deptAction_toview','_self');
+			}else{
+				alert("请先选择一项并且只能选择一项，再进行操作！");
+			}
+		}
+
+		//实现更新
+		function toUpdate(){
+			if(isOnlyChecked()){
+				formSubmit('deptAction_toupdate','_self');
+			}else{
+				alert("请先选择一项并且只能选择一项，再进行操作！");
+			}
+		}
+
+
+	</script>
+
 </head>
 
 <body>

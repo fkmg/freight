@@ -13,6 +13,17 @@ public class DeptP implements Serializable {
 
     private String deptNo;
 
+    /**自定义字段存放修改前parentIdTemp**/
+    private String parentIdTemp;
+
+    public String getParentIdTemp() {
+        return parentIdTemp;
+    }
+
+    public void setParentIdTemp(String parentIdTemp) {
+        this.parentIdTemp = parentIdTemp;
+    }
+
     public String getDeptId() {
         return deptId;
     }

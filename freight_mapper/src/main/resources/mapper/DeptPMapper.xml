@@ -237,4 +237,14 @@
       LEFT JOIN dept_p T2
         ON T1.PARENT_ID = T2.DEPT_ID WHERE T1.`DEPT_ID`=#{value}
   </select>
+
+  <select id="findMaxDeptnoByParentId" parameterType="String" resultType="String">
+      SELECT MAX(dept_no) FROM dept_p WHERE
+      <if test="id==null">
+        PARENT_ID IS NULL
+      </if>
+      <if test="id !=null">
+        PARENT_ID=#{id}
+      </if>
+  </select>
 </mapper>

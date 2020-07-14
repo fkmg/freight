@@ -43,4 +43,12 @@ public interface DeptPMapper {
      * @throws Exception
      */
     DeptVo selectDeptAndParentById(String id) throws Exception;
+
+    /**
+     * 通过父id查询部门编号最大值
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    String findMaxDeptnoByParentId(@Param("id") String id) throws Exception;
 }
